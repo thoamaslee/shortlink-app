@@ -42,6 +42,13 @@ function sendFile(res, filePath) {
     ".html": "text/html; charset=utf-8",
     ".css": "text/css; charset=utf-8",
     ".js": "application/javascript; charset=utf-8",
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".gif": "image/gif",
+    ".webp": "image/webp",
+    ".svg": "image/svg+xml",
+    ".ico": "image/x-icon",
   };
 
   fs.readFile(filePath, (error, data) => {
@@ -147,6 +154,16 @@ const server = http.createServer(async (req, res) => {
   if (req.method === "GET" && pathname === "/app.js") {
     sendFile(res, path.join(PUBLIC_DIR, "app.js"));
     return;
+  }
+
+  if (req.method === "GET") {
+    const requestedPath = path.normalize(pathname).replace(/^(\.\.[/\\])+/, "");
+    const filePath = path.join(PUBLIC_DIR, requestedPath);
+
+    if (filePath.startsWith(PUBLIC_DIR) && fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+      sendFile(res, filePath);
+      return;
+    }
   }
 
   if (req.method === "GET" && pathname === "/api/links") {
