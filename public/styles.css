@@ -43,6 +43,17 @@ button:hover {
   padding: 40px 20px 80px;
 }
 
+.head-banner {
+  margin-bottom: 22px;
+}
+
+.head-banner img {
+  width: 100%;
+  display: block;
+  border-radius: 18px;
+  box-shadow: 0 16px 30px rgba(17, 24, 39, 0.1);
+}
+
 .card {
   background: white;
   border-radius: 20px;
