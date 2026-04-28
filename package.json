@@ -1,0 +1,9 @@
+{
+  "name": "shortlink-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Simple short link web app with click analytics",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>숏링크 생성기</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <section class="card hero">
+        <p class="eyebrow">Short Link Generator</p>
+        <h1>긴 링크를 짧게 만들고 클릭 수를 확인하세요</h1>
+        <p class="subtitle">
+          URL을 입력하면 바로 숏링크를 만들고, 생성된 링크의 클릭 수를 목록에서 볼 수 있습니다.
+        </p>
+
+        <form id="shorten-form" class="shorten-form">
+          <label for="url-input" class="label">긴 URL</label>
+          <div class="form-row">
+            <input
+              id="url-input"
+              name="url"
+              type="url"
+              placeholder="https://example.com/very/long/link"
+              required
+            />
+            <button type="submit">숏링크 만들기</button>
+          </div>
+        </form>
+
+        <p id="message" class="message" aria-live="polite"></p>
+
+        <div id="result" class="result hidden">
+          <h2>생성 결과</h2>
+          <div class="result-box">
+            <div>
+              <p class="result-label">숏링크</p>
+              <a id="short-url" href="#" target="_blank" rel="noreferrer"></a>
+            </div>
+            <button id="copy-button" type="button">복사</button>
+          </div>
+          <p id="original-url" class="original-url"></p>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Analytics</p>
+            <h2>생성된 링크 목록</h2>
+          </div>
+          <button id="refresh-button" type="button" class="secondary">새로고침</button>
+        </div>
+
+        <div id="empty-state" class="empty-state hidden">
+          아직 생성된 숏링크가 없습니다.
+        </div>
+
+        <div id="links-list" class="links-list"></div>
+      </section>
+    </main>
+
+    <script src="/app.js" defer></script>
+  </body>
+  </html>
