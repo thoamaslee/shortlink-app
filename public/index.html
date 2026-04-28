@@ -17,13 +17,21 @@
 
         <form id="shorten-form" class="shorten-form">
           <label for="url-input" class="label">긴 URL</label>
+          <input
+            id="url-input"
+            name="url"
+            type="url"
+            placeholder="https://example.com/very/long/link"
+            required
+          />
+          <label for="custom-code-input" class="label optional-label">커스텀 숏코드 (선택)</label>
           <div class="form-row">
             <input
-              id="url-input"
-              name="url"
-              type="url"
-              placeholder="https://example.com/very/long/link"
-              required
+              id="custom-code-input"
+              name="customCode"
+              type="text"
+              placeholder="my-link (영문/숫자/-/_)"
+              maxlength="20"
             />
             <button type="submit">숏링크 만들기</button>
           </div>

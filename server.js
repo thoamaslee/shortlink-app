@@ -88,6 +88,10 @@ function isValidHttpUrl(value) {
   }
 }
 
+function isValidCustomCode(value) {
+  return /^[A-Za-z0-9_-]{3,20}$/.test(value);
+}
+
 function generateCode(existingCodes) {
   const alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
@@ -161,9 +165,17 @@ const server = http.createServer(async (req, res) => {
     try {
       const body = await parseBody(req);
       const originalUrl = typeof body.url === "string" ? body.url.trim() : "";
+      const customCode = typeof body.customCode === "string" ? body.customCode.trim() : "";
 
       if (!originalUrl || !isValidHttpUrl(originalUrl)) {
         sendJson(res, 400, { error: "유효한 http/https URL을 입력해 주세요." });
+        return;
+      }
+
+      if (customCode && !isValidCustomCode(customCode)) {
+        sendJson(res, 400, {
+          error: "커스텀 코드는 3~20자의 영문, 숫자, -, _ 만 사용할 수 있습니다.",
+        });
         return;
       }
 
@@ -171,6 +183,13 @@ const server = http.createServer(async (req, res) => {
       const existing = links.find((link) => link.originalUrl === originalUrl);
 
       if (existing) {
+        if (customCode && existing.shortCode !== customCode) {
+          sendJson(res, 409, {
+            error: "해당 URL은 이미 다른 숏코드로 생성되어 있습니다.",
+          });
+          return;
+        }
+
         sendJson(res, 200, {
           link: {
             ...existing,
@@ -180,7 +199,13 @@ const server = http.createServer(async (req, res) => {
         return;
       }
 
-      const shortCode = generateCode(new Set(links.map((link) => link.shortCode)));
+      const existingCodes = new Set(links.map((link) => link.shortCode));
+      if (customCode && existingCodes.has(customCode)) {
+        sendJson(res, 409, { error: "이미 사용 중인 커스텀 숏코드입니다." });
+        return;
+      }
+
+      const shortCode = customCode || generateCode(existingCodes);
       const newLink = {
         id: crypto.randomUUID(),
         originalUrl,

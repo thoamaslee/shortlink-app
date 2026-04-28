@@ -80,6 +80,18 @@ button:hover {
   font-weight: 600;
 }
 
+.optional-label {
+  margin-top: 14px;
+}
+
+.shorten-form > input {
+  width: 100%;
+  padding: 0.95rem 1rem;
+  border: 1px solid #d6ddec;
+  border-radius: 12px;
+  background: #f9fbff;
+}
+
 .form-row {
   display: flex;
   gap: 12px;

@@ -1,5 +1,6 @@
 const form = document.querySelector("#shorten-form");
 const urlInput = document.querySelector("#url-input");
+const customCodeInput = document.querySelector("#custom-code-input");
 const result = document.querySelector("#result");
 const shortUrlLink = document.querySelector("#short-url");
 const originalUrlText = document.querySelector("#original-url");
@@ -66,6 +67,7 @@ form.addEventListener("submit", async (event) => {
   setMessage("");
 
   const url = urlInput.value.trim();
+  const customCode = customCodeInput.value.trim();
   if (!url) {
     setMessage("URL을 입력해 주세요.");
     return;
@@ -77,7 +79,7 @@ form.addEventListener("submit", async (event) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ url }),
+      body: JSON.stringify({ url, customCode }),
     });
 
     const data = await response.json();
@@ -90,6 +92,7 @@ form.addEventListener("submit", async (event) => {
     renderResult(data.link);
     setMessage("숏링크가 생성되었습니다.", true);
     urlInput.value = "";
+    customCodeInput.value = "";
     await loadLinks();
   } catch (error) {
     setMessage("서버와 통신하지 못했습니다.");
