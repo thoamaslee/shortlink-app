@@ -12,6 +12,18 @@
         <img src="/header-banner.png" alt="MiniLink 소개 배너" />
       </section>
 
+      <section class="card auth-card">
+        <div class="auth-top">
+          <div>
+            <p class="eyebrow">Admin Login</p>
+            <h2>방문 로그는 Gmail 로그인 후 확인할 수 있어요</h2>
+          </div>
+          <button id="logout-button" type="button" class="secondary hidden">로그아웃</button>
+        </div>
+        <p id="auth-status" class="auth-status">로그인 상태를 확인하는 중...</p>
+        <div id="google-signin" class="google-signin"></div>
+      </section>
+
       <section class="card hero">
         <p class="eyebrow">Short Link Generator</p>
         <h1>긴 링크를 짧게 만들고 클릭 수를 확인하세요</h1>
@@ -74,5 +86,6 @@
     </main>
 
     <script src="/app.js" defer></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
   </body>
   </html>

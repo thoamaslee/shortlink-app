@@ -19,6 +19,13 @@ node server.js
    - Start Command: `node server.js`
    - Plan: Free
 4. 필요하면 환경변수 `BASE_URL`을 서비스 URL로 설정합니다.
+5. Google 로그인을 쓰려면 아래 환경변수도 추가합니다.
+   - `GOOGLE_CLIENT_ID=...`
+   - `SESSION_SECRET=충분히_긴_랜덤_문자열`
+
+Google Cloud Console에서 동일한 클라이언트 ID에 아래를 등록합니다.
+
+- Authorized JavaScript origins: 배포 URL (예: `https://s.mtoolkit.net`)
 
 앱은 `PORT` 환경변수를 사용하고 `0.0.0.0`에 바인딩되므로 Render에서 바로 동작합니다.
 
@@ -28,6 +35,8 @@ node server.js
 - 숏링크 접속 시 원본 URL로 리다이렉트
 - 리다이렉트 발생 시 클릭 수 증가
 - 생성된 링크 목록과 클릭 수 확인
+- Gmail(Google) 로그인
+- 로그인 사용자 전용 간단 방문 로그 확인
 
 ## 데이터 저장
 
